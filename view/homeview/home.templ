@@ -1,0 +1,13 @@
+package homeview 
+
+import "github.com/Captain-Leftovers/gohtmxtemplbeelog/view/layout"
+
+templ ShowHome() {
+	@layout.Base() {
+		<div>
+			<h1>Home</h1>
+			<p>Welcome to the home page!!!</p>
+			<button hx-get="/greet" hx-swap="outerHTML" >Greet the user</button>
+		</div>
+	}
+}
