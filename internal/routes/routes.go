@@ -1,9 +1,15 @@
 package routes
 
-import "net/http"
+import (
+	"net/http"
 
-func RegisterRoutes(handler http.Handler) http.Handler {
-    
+	"github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/handler"
+)
 
-    return handler
+// pass data from newServer to registerRoutes if needed
+
+func RegisterRoutes(mux *http.ServeMux) {
+
+	mux.Handle("/", handler.HomeHandler())
+
 }

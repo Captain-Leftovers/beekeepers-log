@@ -6,13 +6,13 @@ import (
 	"github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/homeview"
 )
 
-type HomeHandler struct{}
+func HomeHandler() http.Handler {
 
-func (h *HomeHandler) HandleShowHome(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		err := homeview.ShowHome().Render(r.Context(), w)
 
-	err := homeview.ShowHome().Render(r.Context(), w)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
 }

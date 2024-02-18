@@ -1,9 +1,11 @@
 package homeview 
 
 import "github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/layout"
+import "github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/component"
 
 templ ShowHome() {
 	@layout.Base() {
+		@component.BaseNavigation()
 		<div>
 			<h1>Home</h1>
 			<p>Welcome to the home page!!!</p>

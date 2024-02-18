@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import "github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/layout"
+import "github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/component"
 
 func ShowHome() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -31,7 +32,11 @@ func ShowHome() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><h1>Home</h1><p>Welcome to the home page!!!</p><button hx-get=\"/greet\" hx-swap=\"outerHTML\">Greet the user</button></div>")
+			templ_7745c5c3_Err = component.BaseNavigation().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <div><h1>Home</h1><p>Welcome to the home page!!!</p><button hx-get=\"/greet\" hx-swap=\"outerHTML\">Greet the user</button></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
