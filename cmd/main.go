@@ -1,28 +1,66 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"log"
+	"net"
 	"net/http"
+	"os"
+	"os/signal"
+	"sync"
+	"time"
 
-	"github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/handler"
-	"github.com/Captain-Leftovers/gohtmxtemplbeelog/view/component"
-	"github.com/a-h/templ"
+	"github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/server"
 )
+
+func run(ctx context.Context) error {
+
+	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt)
+	defer cancel()
+
+	config := &server.Config{
+		Host: "localhost",
+		Port: 3000,
+	}
+
+	srv := server.NewServer(config)
+
+	httpServer := &http.Server{
+		Addr:    net.JoinHostPort(config.Host, fmt.Sprint(config.Port)),
+		Handler: srv,
+	}
+
+	go func() {
+		log.Printf("listening on  http://%s\n", httpServer.Addr)
+		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			fmt.Fprintf(os.Stderr, "error listening and serving: %s\n", err)
+		}
+	}()
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		<-ctx.Done()
+		shutdownCtx := context.Background()
+		shutdownCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+		defer cancel()
+		if err := httpServer.Shutdown(shutdownCtx); err != nil {
+			fmt.Fprintf(os.Stderr, "error shutting down http server: %s\n", err)
+		}
+	}()
+	wg.Wait()
+	return nil
+
+}
 
 func main() {
 
-	mainRouter := http.NewServeMux()
-
-	homeHandler := &handler.HomeHandler{}
-
-	mainRouter.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-	mainRouter.HandleFunc("/", homeHandler.HandleShowHome)
-
-	mainRouter.Handle("GET /greet", templ.Handler(component.HomeGreeting("Captain Leftovers")))
-
-	fmt.Println("Server is running at http://localhost:3000")
-
-	http.ListenAndServe(":3000", mainRouter)
+	ctx := context.Background()
+	if err := run(ctx); err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
 
 }

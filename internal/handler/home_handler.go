@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Captain-Leftovers/gohtmxtemplbeelog/view/homeview"
+	"github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/homeview"
 )
 
 type HomeHandler struct{}
