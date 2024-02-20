@@ -9,6 +9,9 @@ import (
 // pass data from newServer to registerRoutes if needed
 
 func RegisterRoutes(mux *http.ServeMux) {
+	// register fileserver from static/
+
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	mux.Handle("/", handler.HomeHandler())
 

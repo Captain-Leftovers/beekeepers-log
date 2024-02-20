@@ -23,7 +23,7 @@ func Base() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta http-equiv=\"refresh\" content=\"1\"><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"/static/htmx.min.js\"></script><title>Document</title></head><body><p>This is base Layout!</p>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta http-equiv=\"refresh\" content=\"1\"><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"/static/htmx.min.js\"></script><link href=\"/static/css/output.css\" rel=\"stylesheet\"><link href=\"/static/css/custom.css\" rel=\"stylesheet\"><title>Document</title></head><body><p class=\"text-red-500 bg-blue-400\">This is base Layoutdd!</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
