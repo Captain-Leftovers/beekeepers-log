@@ -36,7 +36,7 @@ func ShowHome() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <div><h1>Home</h1><p>Welcome to the home page!!!</p><button hx-get=\"/greet\" hx-swap=\"outerHTML\">Greet the user</button></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <div><h1>Home!</h1><p>Welcome to the home </p><button hx-get=\"/greet\" hx-swap=\"outerHTML\">Greet the user</button></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
