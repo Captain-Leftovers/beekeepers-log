@@ -1,11 +1,15 @@
 package component
 
+css wFit() {
+	width: fit-content;
+}
+
 templ PaperButton(label string, class string) {
 	<button class={ class }>
 		<div class="box shadow">
 			<div class="middle-box">
 				<div class="circle"></div>
-				<p class="w-fit ">{ label }</p>
+				<p class={ wFit() }>{ label }</p>
 			</div>
 		</div>
 	</button>
