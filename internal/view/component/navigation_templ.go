@@ -23,7 +23,7 @@ func BaseNavigation() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav><ul><li><a class=\"text-red-500\">Home</a></li><li><a>About</a></li><li><a>Contact</a></li></ul></nav>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"bg-blue-300 container mx-auto lg:px-20 p-4 md:px-10 flex justify-between\"><ul class=\"flex gap-4\"><li><a>Home</a></li><li><a>Hives</a></li><li><a>About</a></li></ul><div><p>icon maybe</p></div><ul class=\"flex gap-4\"><li><a>user</a></li><li><a>login/logout</a></li></ul></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
