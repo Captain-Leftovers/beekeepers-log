@@ -23,7 +23,7 @@ func Base() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\" class=\"\"><head><!-- TODO development  --><meta http-equiv=\"refresh\" content=\"1\"><meta http-equiv=\"pragma\" content=\"no-cache\"><meta http-equiv=\"cache-control\" content=\"no-store\"><!-- TODO development  --><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"/static/htmx.min.js\"></script><link href=\"/static/css/output.css\" rel=\"stylesheet\"><link href=\"/static/css/custom.css\" rel=\"stylesheet\"><title>Document</title></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\" class=\"\"><head><!-- TODO development  --><meta http-equiv=\"pragma\" content=\"no-cache\"><meta http-equiv=\"cache-control\" content=\"no-store\"><!-- TODO development  --><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"/static/htmx.min.js\"></script><link href=\"/static/css/output.css\" rel=\"stylesheet\"><link href=\"/static/css/custom.css\" rel=\"stylesheet\"><title>Document</title></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
