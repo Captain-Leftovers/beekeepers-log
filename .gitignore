@@ -6,6 +6,8 @@ node_modules/
 
 tmp/
 
+*_templ.txt
+
 
 
 PLANNER.md
