@@ -1,18 +1,15 @@
 package component
 
 templ BaseNavigation() {
-	<nav class="bg-blue-300 container mx-auto lg:px-20 p-4 md:px-10 flex justify-between">
-		<ul class="flex gap-4">
-			<li><a>Home</a></li>
-			<li><a>Hives</a></li>
+	<nav class="">
+		<ul class="">
+			<li class="">
+				<a>
+					@PaperButton("Home", "w-40 h-10")
+				</a>
+			</li>
+			<li class=""><a>Hives</a></li>
 			<li><a>About</a></li>
-		</ul>
-		<div>
-			<p>icon maybe</p>
-		</div>
-		<ul class="flex gap-4">
-			<li><a>user</a></li>
-			<li><a>login/logout</a></li>
 		</ul>
 	</nav>
 }

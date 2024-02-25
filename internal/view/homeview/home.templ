@@ -1,24 +1,26 @@
 package homeview 
 
 import "github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/layout"
+
 import "github.com/Captain-Leftovers/gohtmxtemplbeelog/internal/view/component"
-
-
-css red(){
-	background-color: red;
-}
 
 templ ShowHome() {
 	@layout.Base() {
-		@component.BaseNavigation()
-		<div>
-			<h1 class="text-4xl text-center">Home!</h1>
-			<p class="text-center">Welcome to the home</p>
-			<div class="flex flex-col gap-4">
-				@component.PaperButton("Click me", "w-40 h-10")
-				@component.PaperButton("Hives Here", "w-40 h-10")
+		<div class="bg-red min-h-screen grid grid-cols-[48px_auto] has-[.sidebar:hover]:grid-cols-[30%_auto] transition-all duration-300">
+			<div class="sidebar bg-yellow-400 overflow-hidden">
+				@component.BaseNavigation()
 			</div>
-			<button hx-get="/greet" hx-swap="outerHTML">Greet the user</button>
+			<div class=" bg-cyan-300 ">
+				<div>
+					<h1 class="text-4xl text-center">Home!</h1>
+					<p class="text-center">Welcome to the home</p>
+					<div class="flex flex-col gap-4">
+						@component.PaperButton("Click me", "w-40 h-10")
+						@component.PaperButton("Hives Here", "w-40 h-10")
+					</div>
+					<button hx-get="/greet" hx-swap="outerHTML">Greet the user</button>
+				</div>
+			</div>
 		</div>
 	}
 }

@@ -550,76 +550,50 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.container{
-  width: 100%;
-}
-
-@media (min-width: 640px){
-  .container{
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px){
-  .container{
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px){
-  .container{
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px){
-  .container{
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px){
-  .container{
-    max-width: 1536px;
-  }
-}
-
-.mx-auto{
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .flex{
   display: flex;
+}
+
+.grid{
+  display: grid;
 }
 
 .h-10{
   height: 2.5rem;
 }
 
+.min-h-screen{
+  min-height: 100vh;
+}
+
 .w-40{
   width: 10rem;
+}
+
+.grid-cols-\[48px_auto\]{
+  grid-template-columns: 48px auto;
 }
 
 .flex-col{
   flex-direction: column;
 }
 
-.justify-between{
-  justify-content: space-between;
-}
-
 .gap-4{
   gap: 1rem;
 }
 
-.bg-blue-300{
-  --tw-bg-opacity: 1;
-  background-color: rgb(147 197 253 / var(--tw-bg-opacity));
+.overflow-hidden{
+  overflow: hidden;
 }
 
-.p-4{
-  padding: 1rem;
+.bg-cyan-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(103 232 249 / var(--tw-bg-opacity));
+}
+
+.bg-yellow-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
 .text-center{
@@ -637,16 +611,56 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-@media (min-width: 768px){
-  .md\:px-10{
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
+.transition-all{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
-@media (min-width: 1024px){
-  .lg\:px-20{
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
+.duration-300{
+  transition-duration: 300ms;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[30\%_auto\]:has(.sidebar:hover){
+  grid-template-columns: 30% auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[fit_auto\]:has(.sidebar:hover){
+  grid-template-columns: fit auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[_auto\]:has(.sidebar:hover){
+  grid-template-columns: auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[max_auto\]:has(.sidebar:hover){
+  grid-template-columns: max auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[auto_auto\]:has(.sidebar:hover){
+  grid-template-columns: auto auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[min_auto\]:has(.sidebar:hover){
+  grid-template-columns: min auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[min\(\)_auto\]:has(.sidebar:hover){
+  grid-template-columns: min() auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[w-fit_auto\]:has(.sidebar:hover){
+  grid-template-columns: w-fit auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[20\%_auto\]:has(.sidebar:hover){
+  grid-template-columns: 20% auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[w-40_auto\]:has(.sidebar:hover){
+  grid-template-columns: w-40 auto;
+}
+
+.has-\[\.sidebar\:hover\]\:grid-cols-\[fit-content_auto\]:has(.sidebar:hover){
+  grid-template-columns: fit-content auto;
 }
