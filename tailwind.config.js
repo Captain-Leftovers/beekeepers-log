@@ -2,7 +2,9 @@
 module.exports = {
 	content: ['./internal/view/**/*.templ'],
 	theme: {
-		extend: {},
+		extend: {
+		
+		},
 	},
 	plugins: [],
 }
