@@ -1,0 +1,23 @@
+package layout
+
+
+
+
+templ BaseLayout(showNav bool) {
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Document</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="public/styles.css" type="text/css" />
+    </head>
+    <body>
+        if showNav {
+            "nav here..."
+        }
+            { children... }
+    </body>
+    </html>
+} 

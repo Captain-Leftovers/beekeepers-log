@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+
+        // Templ CLI
+        {
+            "label": "templ generate",
+            "type": "shell",
+            "command": "templ generate",
+            "options": {
+                "statusbar": {
+                    "label": "templ generate",
+                    "color": "#649ff8",
+                    "backgroundColor": "statusBarItem.errorBackground"
+                }
+            }
+        },
+
+
+            // Tailwind CSS CLI
+        {
+            "label": "tw watch",
+            "type": "shell",
+            "command": "./tailwindcss -i view/css/app.css -o public/styles.css --watch",
+        },
+
+        {
+            "label": "tw minify",
+            "type": "shell",
+            "command": "./tailwindcss -i view/css/app.css -o public/styles.css --minify",
+            "hide": true
+        },
+
+        {
+            "label": "tw build",
+            "type": "shell",
+            "command": "./tailwindcss -i view/css/app.css -o public/styles.css",
+            "hide": false
+        },
+    ]
+}

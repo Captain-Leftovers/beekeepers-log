@@ -1,9 +1,16 @@
 package home
 
-templ Index(){
+    import (
+        "github.com/Captain-Leftovers/beekeepers-log/view/layout"
+    )
 
+templ Index() {
+    @layout.BaseLayout(true){
 
-    <div>
-        <h1>Home Page HERE</h1>
+    <div class="text-4xl">
+        <h1 class="text-fuchsia-700" >Home</h1>
+        <p class="text-red-700">Welcome to the home page!!!</p>
     </div>
+    }
+    
 }
