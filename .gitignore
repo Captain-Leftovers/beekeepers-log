@@ -2,4 +2,6 @@
 .env
 .local.env
 TODO.md
-
+bin
+*_templ.go*
+*_templ.go

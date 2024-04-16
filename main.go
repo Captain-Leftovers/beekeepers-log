@@ -1,35 +1,49 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"log/slog"
+	"net/http"
 	"os"
 
+	"github.com/Captain-Leftovers/beekeepers-log/handler"
+	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 )
 
-func init() {
-	fmt.Println("Initialization function")
-	
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	DB_CONNECTION  := os.Getenv("DB_CONNECTION")
-	if DB_CONNECTION == "" {
-		log.Fatal("DB_CONNECTION is not set in .env file")
-	}	
-
-	PORT := os.Getenv("PORT")
-	if PORT == "" {
-		log.Fatal("PORT is not set in .env file")
-	}
-
-
+func InitProg() error {
+	return godotenv.Load()
+   
 }
+
 
 func main() {
-	// This is a comment
-	println("Hello, World!")
+
+	if err := InitProg(); err != nil {
+		log.Fatal(err)
+	}
+	
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+
+
+
+
+	router := chi.NewMux()
+
+
+	router.Get("/", handler.HandleHomeIndex)
+
+	slog.Info("Starting server on", "port", PORT)
+
+	log.Fatal(http.ListenAndServe(":"+PORT, router))
+
+
+
+
 }
+
+
