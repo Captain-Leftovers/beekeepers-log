@@ -3,15 +3,94 @@ package signUp
 import "github.com/Captain-Leftovers/beekeepers-log/view/layout"
 
 
+var emailPattern = `^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$`
 
 
 templ SignUpIndex() {
     @layout.BaseLayout(true){
-        <div  class="container flex items-center justify-center p-4 mx-auto bg-blue-400 grow">
-            <div class=" flex bg-red-300 max-w-[500px] w-full">
-                <h1>Sign Up</h1>
-            </div>
-        </div>
+        <section class="container py-10 mx-auto md:py-24">
+            <div class="max-w-sm mx-auto space-y-6">
+  <div class="space-y-2 text-center">
+    <h1 class="text-3xl font-bold">Sign Up</h1>
+    <p class="text-gray-500 dark:text-gray-400">Enter your information to create an account</p>
+  </div>
+  <div class="">
+  <form action="" class="space-y-4">
+    <div class="space-y-2">
+      <label
+        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        for="username"
+      >
+        Username
+      </label>
+      <input
+        class="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="username"
+        placeholder="username"
+        minlength="3"
+        title="Username must be at least 3 characters long."
+        required="true"
+      />
+    </div>
+    <div class="space-y-2">
+      <label
+        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        for="email"
+      >
+        Email
+      </label>
+      <input
+        class="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="email"
+        placeholder="m@example.com"
+        required="true"
+        title="Please enter a valid email address."
+        pattern={emailPattern}
+        type="email"
+      />
+    </div>
+    <div class="space-y-2">
+      <label
+        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        for="password"
+      >
+        Password
+      </label>
+      <input
+        class="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="password"
+        required="true"
+        minlength="3"
+        title="Password must be at least 3 characters long."
+        type="password"
+      />
+    </div>
+    <div class="space-y-2">
+      <label
+        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        for="confirm-password"
+      >
+        Confirm Password
+      </label>
+      <input
+        class="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="confirm-password"
+        required="true"
+        minlength="3"
+        title="Password must be at least 3 characters long."
+        type="password"
+      />
+    </div>
+    <button
+      class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"
+      type="submit"
+    >
+      Sign Up
+    </button>
+  </form>
+  </div>
+</div>    
+        </section>
     }
 
 

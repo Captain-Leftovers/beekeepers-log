@@ -47,6 +47,10 @@
             "label": "Start All Tasks",
             "dependsOn": ["tailwind-watch", "air", "templ-watch"],
             "dependsOrder": "parallel",
+            "presentation": {
+                "panel": "shared",
+                "group": "start all"
+            },
             "options": {
                 "statusbar": {
                     "label": "-chain-",
@@ -61,18 +65,31 @@
             "type": "shell",
             "command" : "./tailwindcss -i view/css/app.css -o public/styles.css --watch",
             "presentation": {
-                "panel": "new"
+                "panel": "shared",
+                "group": "start all"
+
             },
-            "hide": true
+            "options": {
+                "statusbar": {
+                    "color": "#0eedf5",
+                },
+            },
+            "hide": false
         },
             {
             "label": "air",
             "type": "shell",
             "command" : "air",
             "presentation": {
-                "panel": "new"
+                "panel": "shared",
+                "group": "start all"
             },
-            "hide": true
+            "options": {
+                "statusbar": {
+                    "color": "#e982f9",
+                },
+            },
+            "hide": false
         },
         {
             "label": "templ-watch",
@@ -80,9 +97,15 @@
             "command" : "templ generate --watch --proxy='http://localhost:3000'",
             
             "presentation": {
-                "panel": "new"
+                "panel": "shared",
+                "group": "start all"
             },
-            "hide": true
+            "options": {
+                "statusbar": {
+                    "color": "#f5f50e",
+                },
+            },
+            "hide": false
         }
 
     ]

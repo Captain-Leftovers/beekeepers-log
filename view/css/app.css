@@ -5,5 +5,5 @@
 
 *, body, html{
     box-sizing: border-box;
-    outline: red dashed 1px;
+    /* outline: red dashed 1px; */
 }
