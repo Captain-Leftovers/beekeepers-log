@@ -1,0 +1,1 @@
+<div class=\"text-4xl bg-red-300\"><h1 class=\"text-fuchsia-700\">Home</h1><p class=\"\">Welcome to the home page!!!</p></div>

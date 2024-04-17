@@ -1,0 +1,2 @@
+<!doctype html><html lang=\"en\" class=\"\"><head><title>Document</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"public/styles.css\" type=\"text/css\"><script defer src=\"public/assets/js/htmx.min.js\"></script><script defer src=\"public/assets/js/alpine.min.js\"></script></head><body class=\"min-h-screen bg-yellow-200 flex flex-col\">
+</body></html>

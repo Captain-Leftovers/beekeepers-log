@@ -13,9 +13,10 @@
                 "statusbar": {
                     "label": "templ generate",
                     "color": "#649ff8",
-                    "backgroundColor": "statusBarItem.errorBackground"
-                }
-            }
+                    
+                },
+            },
+            "hide": true
         },
 
 
@@ -24,6 +25,7 @@
             "label": "tw watch",
             "type": "shell",
             "command": "./tailwindcss -i view/css/app.css -o public/styles.css --watch",
+            "hide": true
         },
 
         {
@@ -37,7 +39,51 @@
             "label": "tw build",
             "type": "shell",
             "command": "./tailwindcss -i view/css/app.css -o public/styles.css",
-            "hide": false
+            "hide": true
         },
+
+        //Watch Mode Chained Tasks
+        {
+            "label": "Start All Tasks",
+            "dependsOn": ["tailwind-watch", "air", "templ-watch"],
+            "dependsOrder": "parallel",
+            "options": {
+                "statusbar": {
+                    "label": "-chain-",
+                    "color": "#6af50e",
+                    
+                },
+            },
+        },
+        
+        {
+            "label": "tailwind-watch",
+            "type": "shell",
+            "command" : "./tailwindcss -i view/css/app.css -o public/styles.css --watch",
+            "presentation": {
+                "panel": "new"
+            },
+            "hide": true
+        },
+            {
+            "label": "air",
+            "type": "shell",
+            "command" : "air",
+            "presentation": {
+                "panel": "new"
+            },
+            "hide": true
+        },
+        {
+            "label": "templ-watch",
+            "type": "shell",
+            "command" : "templ generate --watch --proxy='http://localhost:3000'",
+            
+            "presentation": {
+                "panel": "new"
+            },
+            "hide": true
+        }
+
     ]
 }

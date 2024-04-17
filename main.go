@@ -51,14 +51,15 @@ func main() {
 	router.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
 
 	router.Get("/", handler.MakeHandler(handler.HandleHomeIndex))
+	
+	router.Get("/sign-up", handler.MakeHandler(handler.HandleSignUpIndex))
 
 	slog.Info("Starting server on", "port", PORT)
 
 	log.Fatal(http.ListenAndServe(":"+PORT, router))
 
-
-
-
 }
+
+
 
 
