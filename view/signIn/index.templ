@@ -1,0 +1,80 @@
+package signIn
+
+import "github.com/Captain-Leftovers/beekeepers-log/view/layout"
+
+templ SignInIndex() {
+	@layout.BaseLayout(true, "sign-in") {
+		<section class="container py-10 mx-auto md:py-24">
+			<div class="max-w-sm mx-auto space-y-6">
+				<div class="space-y-2 text-center">
+					<h1 class="text-3xl font-bold">Sign In</h1>
+					<p class="text-gray-500 dark:text-gray-400">Enter your information to create an account</p>
+				</div>
+				<div class="">
+					@SignInForm(SignInCredentials{}, SignInErrors{})
+				</div>
+			</div>
+		</section>
+	}
+}
+
+// TODO : add sign in errors and credentials to handlers after submitting the form
+
+type SignInErrors struct {
+	Email              string
+	Password           string
+	InvalidCredentials string
+}
+
+type SignInCredentials struct {
+	Email    string
+	Password string
+}
+
+templ SignInForm(creds SignInCredentials, errs SignInErrors) {
+	<form action="" hx-post="/sign-up" class="space-y-4">
+		<div class="space-y-2">
+			<label
+				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+				for="email"
+			>
+				Email
+			</label>
+			<input
+				class="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+				id="email"
+				placeholder="m@example.com"
+				required="true"
+				title="Please enter a valid email address."
+				type="email"
+				name="email"
+				value={ creds.Email }
+			/>
+		</div>
+		<div class="space-y-2">
+			<label
+				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+				for="password"
+			>
+				Password
+			</label>
+			<input
+				class="flex w-full h-10 py-2 text-sm border rounded-md w-fullpx-3 border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+				id="password"
+				required="true"
+				minlength="3"
+				title="Password must be at least 3 characters long."
+				type="password"
+				name="password"
+			/>
+		</div>
+		<button
+			class="inline-flex items-center text-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"
+			type="submit"
+		>
+			Sign In
+		</button>
+		// TODO : Add a spinner here maybe inside the button
+		// <img class="htmx-indicator" src="public/assets/svg/ball-triangle.svg" alt=""/>
+	</form>
+}

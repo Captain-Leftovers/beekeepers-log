@@ -12,54 +12,47 @@ import (
 	"github.com/joho/godotenv"
 )
 
-
 func InitProg() error {
 	return godotenv.Load()
 }
-
 
 func main() {
 
 	if err := InitProg(); err != nil {
 		log.Fatal(err)
 	}
-	
+
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		log.Fatal("$PORT must be set")
 	}
 
-
-
-
-
 	router := chi.NewMux()
 
 	// TODO : check cors later if problems with htmx or other front end stuff
 	cors := cors.New(cors.Options{
-        AllowedOrigins:   []string{"https://*", "http://*"},
-        AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-        AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-        ExposedHeaders:   []string{"Link"},
-        AllowCredentials: true,
-        MaxAge:           300, // Maximum value not set
-    })
+		AllowedOrigins:   []string{"https://*", "http://*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300, // Maximum value not set
+	})
 
-    router.Use(cors.Handler)
-	
+	router.Use(cors.Handler)
+
 	// static files
 	router.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
 
 	router.Get("/", handler.MakeHandler(handler.HandleHomeIndex))
-	
+
 	router.Get("/sign-up", handler.MakeHandler(handler.HandleSignUpIndex))
+	router.Post("/sign-up", handler.MakeHandler(handler.HandlePOSTSignUpForm))
+
+	router.Get("/sign-in", handler.MakeHandler(handler.HandleSignInIndex))
 
 	slog.Info("Starting server on", "port", PORT)
 
 	log.Fatal(http.ListenAndServe(":"+PORT, router))
 
 }
-
-
-
-
