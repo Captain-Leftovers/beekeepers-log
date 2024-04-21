@@ -29,7 +29,6 @@ func HandlePOSTSignUpForm(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// TODO : validate the form data
-
 	//print all the form data
 
 	// TODO :  remove slogs below
