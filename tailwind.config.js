@@ -17,6 +17,14 @@ module.exports = {
 					DEFAULT: '#FF6F00',
 					foreground: '#000000',
 				},
+				danger: {
+					DEFAULT: '#D32F2F',
+					foreground: '#FFFFFF',
+				},
+				warning: {
+					DEFAULT: '#FFA000',
+					foreground: '#000000',
+				},
 			},
 			animation: {
 				grow: 'grow 1s ease-out',

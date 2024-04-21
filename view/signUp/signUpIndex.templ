@@ -13,15 +13,26 @@ templ SignUpIndex() {
 					<p class="text-gray-500 dark:text-gray-400">Enter your information to create an account</p>
 				</div>
 				<div class="">
-					@SignUpForm()
+					@SignUpForm(SignUpCredentials{}, SignUpErrors{})
 				</div>
 			</div>
 		</section>
 	}
 }
 
+type SignUpErrors struct {
+	Username string
+	Email    string
+	Password string
+}
 
-templ SignUpForm() {
+type SignUpCredentials struct {
+	Username string
+	Email    string
+	Password string
+}
+
+templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 	<form action="" hx-post="/sign-up" class="space-y-4">
 		<div class="space-y-2">
 			<label
@@ -38,6 +49,7 @@ templ SignUpForm() {
 				title="Username must be at least 3 characters long."
 				required="true"
 				name="username"
+				value={ creds.Username }
 			/>
 		</div>
 		<div class="space-y-2">
@@ -55,6 +67,7 @@ templ SignUpForm() {
 				title="Please enter a valid email address."
 				type="email"
 				name="email"
+				value={ creds.Email }
 			/>
 		</div>
 		<div class="space-y-2">

@@ -50,6 +50,7 @@ func main() {
 	router.Post("/sign-up", handler.MakeHandler(handler.HandlePOSTSignUpForm))
 
 	router.Get("/sign-in", handler.MakeHandler(handler.HandleSignInIndex))
+	router.Post("/sign-in", handler.MakeHandler(handler.HandleSignInProcess))
 
 	slog.Info("Starting server on", "port", PORT)
 

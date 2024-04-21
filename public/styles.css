@@ -863,6 +863,11 @@ video {
   line-height: 1;
 }
 
+.text-danger {
+  --tw-text-opacity: 1;
+  color: rgb(211 47 47 / var(--tw-text-opacity));
+}
+
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));

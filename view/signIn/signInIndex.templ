@@ -31,9 +31,9 @@ type SignInCredentials struct {
 	Password string
 }
 
-templ SignInForm(creds SignInCredentials, errs SignInErrors) {
-	<form action="" hx-post="/sign-up" class="space-y-4">
-		<div class="space-y-2">
+templ SignInForm(creds SignInCredentials, errors SignInErrors) {
+	<form action="" hx-post="/sign-in" class="space-y-4">
+		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				for="email"
@@ -50,8 +50,9 @@ templ SignInForm(creds SignInCredentials, errs SignInErrors) {
 				name="email"
 				value={ creds.Email }
 			/>
+			<p class="text-danger text-sm">{ errors.Email }</p>
 		</div>
-		<div class="space-y-2">
+		<div>
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				for="password"
@@ -67,6 +68,7 @@ templ SignInForm(creds SignInCredentials, errs SignInErrors) {
 				type="password"
 				name="password"
 			/>
+			<p class="text-danger text-sm">{ errors.Password }</p>
 		</div>
 		<button
 			class="inline-flex items-center text-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"

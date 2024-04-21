@@ -32,6 +32,7 @@ func HandlePOSTSignUpForm(w http.ResponseWriter, r *http.Request) error {
 
 	//print all the form data
 
+	// TODO :  remove slogs below
 	slog.Info("username: ", "username", username)
 	slog.Info("email: ", "email", email)
 	slog.Info("password: ", "password", password)
