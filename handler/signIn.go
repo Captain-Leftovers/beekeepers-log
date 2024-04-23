@@ -6,36 +6,50 @@ import (
 	"net/http"
 )
 
-func HandleSignInIndex(w http.ResponseWriter, r *http.Request) error {
+func HandleSignInIndex() http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	return signIn.SignInIndex().Render(r.Context(), w)
+		err := signIn.SignInIndex().Render(r.Context(), w)
+
+		if err != nil {
+			logError(r, err)
+		}
+	})
+
 }
 
-func HandleSignInProcess(w http.ResponseWriter, r *http.Request) error {
-	if err := r.ParseForm(); err != nil {
-		return err
-	}
+func HandlePostSignIn() http.HandlerFunc {
 
-	email := r.FormValue("email")
-	// password := r.FormValue("password")
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	// TODO : validate the form data
-	loginSuccess := false
-
-	if loginSuccess {
-		//TODO : redirect to home page
-	} else {
-		creds := signIn.SignInCredentials{
-			Email: email,
+		if err := r.ParseForm(); err != nil {
+			logError(r, err)
 		}
 
-		errs := signIn.SignInErrors{
-			Email:    "Email is not a valid email format or does not exist in the database",
-			Password: "Password is incorrect format",
+		email := r.FormValue("email")
+		// password := r.FormValue("password")
+
+		// TODO : validate the form data
+		loginSuccess := false
+
+		if loginSuccess {
+			//TODO : redirect to home page
+		} else {
+			creds := signIn.SignInCredentials{
+				Email: email,
+			}
+
+			errs := signIn.SignInErrors{
+				Email:    "Email is not a valid email format or does not exist in the database",
+				Password: "Password is incorrect format",
+			}
+
+			err := signIn.SignInForm(creds, errs).Render(r.Context(), w)
+			if err != nil {
+				logError(r, err)
+			}
+
 		}
 
-		return signIn.SignInForm(creds, errs).Render(r.Context(), w)
-
-	}
-	return nil
+	})
 }

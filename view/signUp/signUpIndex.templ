@@ -24,6 +24,7 @@ type SignUpErrors struct {
 	Username string
 	Email    string
 	Password string
+	Other    string
 }
 
 type SignUpCredentials struct {
@@ -32,8 +33,11 @@ type SignUpCredentials struct {
 	Password string
 }
 
+
+// TODO :  after the post request make it to replace the form not add anotherz
+
 templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
-	<form action="" hx-post="/sign-up" class="space-y-4">
+	<form action="" hx-post="/sign-up"  class="space-y-4">
 		<div class="space-y-2">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

@@ -3,39 +3,88 @@ package handler
 import (
 	"log/slog"
 	"net/http"
+	"time"
 
+	"github.com/Captain-Leftovers/beekeepers-log/internal/auth"
+	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
 	"github.com/Captain-Leftovers/beekeepers-log/view/signUp"
+	"github.com/google/uuid"
 )
 
-func HandleSignUpIndex(w http.ResponseWriter, r *http.Request) error {
-	return signUp.SignUpIndex().Render(r.Context(), w)
+func HandleSignUpIndex() http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		err := signUp.SignUpIndex().Render(r.Context(), w)
+		if err != nil {
+			logError(r, err)
+		}
+	})
+
 }
 
-func HandlePOSTSignUpForm(w http.ResponseWriter, r *http.Request) error {
-	if err := r.ParseForm(); err != nil {
-		return err
-	}
+func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 
-	username := r.FormValue("username")
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			logError(r, err)
+		}
 
-	email := r.FormValue("email")
+		username := r.FormValue("username")
 
-	password := r.FormValue("password")
+		email := r.FormValue("email")
 
-	confirmPassword := r.FormValue("confirm-password")
+		password := r.FormValue("password")
 
-	if password != confirmPassword {
-		//TODO add error message
-	}
+		confirmPassword := r.FormValue("confirm-password")
 
-	// TODO : validate the form data
-	//print all the form data
+		formCreds := signUp.SignUpCredentials{
+			Email:    email,
+			Username: username,
+		}
+		formErr := signUp.SignUpErrors{}
 
-	// TODO :  remove slogs below
-	slog.Info("username: ", "username", username)
-	slog.Info("email: ", "email", email)
-	slog.Info("password: ", "password", password)
-	slog.Info("confirmPassword: ", "confirmPassword", confirmPassword)
+		if password != confirmPassword {
+			formErr.Password = "passwords don't match"
+			err := signUp.SignUpForm(formCreds, formErr).Render(r.Context(), w)
+			if err != nil {
+				logError(r, err)
+			}
+		}
 
-	return nil
+		// TODO : validate the form data
+
+		hashedPassword, err := auth.HashNewPassword(password)
+
+		if err != nil {
+			formErr.Other = "Something went wrong. Please try again later."
+			err := signUp.SignUpForm(formCreds, formErr).Render(r.Context(), w)
+			if err != nil {
+				logError(r, err)
+			}
+
+		}
+
+		user, err := DBQ.CreateUser(r.Context(), database.CreateUserParams{
+			ID:        uuid.New(),
+			Username:  username,
+			Email:     email,
+			Password:  hashedPassword,
+			CreatedAt: time.Now().UTC(),
+			UpdatedAt: time.Now().UTC(),
+		})
+
+		if err != nil {
+			formErr.Other = err.Error()
+			logError(r, err)
+			err := signUp.SignUpForm(formCreds, formErr).Render(r.Context(), w)
+			if err != nil {
+				logError(r, err)
+			}
+
+		}
+
+		slog.Info("User created", "user", user)
+
+		w.Header().Set("HX-Redirect", "/")
+	})
 }

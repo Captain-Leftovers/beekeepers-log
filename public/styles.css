@@ -659,6 +659,10 @@ video {
     opacity: 0;
   }
 
+  20% {
+    width: 80%;
+  }
+
   80% {
     width: 110%;
   }

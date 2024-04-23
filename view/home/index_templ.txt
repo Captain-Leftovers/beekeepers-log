@@ -1,1 +1,0 @@
-<div class=\"text-4xl bg-blue-900\"><h1 class=\"text-green-100\">Home</h1><p class=\"bg-yellow-700\">Welcome to the home page!!</p><p class=\"bg-stone-200\">Welcome to the home page!!</p><p class=\"bg-yellow-900 text-yellow-400\">Welcome to the home page!!</p><p class=\"\">Welcome to the home page!!</p></div>

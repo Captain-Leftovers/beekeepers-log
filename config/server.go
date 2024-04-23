@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
-	"github.com/Captain-Leftovers/beekeepers-log/routes"
+	"github.com/Captain-Leftovers/beekeepers-log/route"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 )
@@ -28,7 +28,7 @@ func NewServer(
 	var handler = mux
 	handler.Use(cors.Handler)
 
-	routes.AddRoutes(
+	route.AddRoutes(
 		handler,
 		DBQ,
 	)

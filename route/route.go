@@ -1,4 +1,4 @@
-package routes
+package route
 
 import (
 	"net/http"
@@ -19,12 +19,11 @@ func AddRoutes(
 
 	router.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
 
-	router.Get("/", handler.MakeHandler(handler.HandleHomeIndex))
+	router.Get("/", handler.HandleHomeIndex())
 
-	router.Get("/sign-up", handler.MakeHandler(handler.HandleSignUpIndex))
-	router.Post("/sign-up", handler.MakeHandler(handler.HandlePOSTSignUpForm))
+	router.Get("/sign-in", handler.HandleSignInIndex())
+	router.Post("/sign-in", handler.HandlePostSignIn())
 
-	router.Get("/sign-in", handler.MakeHandler(handler.HandleSignInIndex))
-	router.Post("/sign-in", handler.MakeHandler(handler.HandleSignInProcess))
-
+	router.Get("/sign-up", handler.HandleSignUpIndex())
+	router.Post("/sign-up", handler.HandlePostSignUpForm(DBQ))
 }

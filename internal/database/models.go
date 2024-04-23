@@ -12,6 +12,7 @@ type User struct {
 	ID        interface{}
 	Username  string
 	Email     string
+	Password  string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

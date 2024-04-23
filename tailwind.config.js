@@ -33,6 +33,7 @@ module.exports = {
 				grow: {
 					//width grows from 0 to 100%
 					'0%': { width: '0%', opacity: 0 },
+					'20%': { width: '80%' },
 					'80%': { width: '110%' },
 					'100%': { width: '100%', opacity: 1 },
 				},
