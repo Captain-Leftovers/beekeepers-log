@@ -18,6 +18,7 @@ func HandleSignUpIndex() http.HandlerFunc {
 		if err != nil {
 			logError(r, err)
 		}
+
 	})
 
 }
@@ -49,6 +50,7 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 			if err != nil {
 				logError(r, err)
 			}
+			return
 		}
 
 		// TODO : validate the form data
@@ -62,6 +64,8 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 				logError(r, err)
 			}
 
+			return
+
 		}
 
 		user, err := DBQ.CreateUser(r.Context(), database.CreateUserParams{
@@ -74,17 +78,21 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 		})
 
 		if err != nil {
-			formErr.Other = err.Error()
+			// TODO : add proper message
+			formErr.Other = "some constraint failed"
 			logError(r, err)
 			err := signUp.SignUpForm(formCreds, formErr).Render(r.Context(), w)
 			if err != nil {
 				logError(r, err)
 			}
 
+			return
+
 		}
 
 		slog.Info("User created", "user", user)
 
 		w.Header().Set("HX-Redirect", "/")
+		w.WriteHeader(http.StatusSeeOther)
 	})
 }

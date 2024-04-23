@@ -637,6 +637,10 @@ video {
   height: 2px;
 }
 
+.min-h-4 {
+  min-height: 1rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -675,6 +679,20 @@ video {
 
 .animate-grow {
   animation: grow 1s ease-out;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
 }
 
 .select-none {

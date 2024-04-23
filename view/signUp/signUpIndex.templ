@@ -33,12 +33,10 @@ type SignUpCredentials struct {
 	Password string
 }
 
-
 // TODO :  after the post request make it to replace the form not add anotherz
-
 templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
-	<form action="" hx-post="/sign-up"  class="space-y-4">
-		<div class="space-y-2">
+	<form id="sign-up-form" action="" hx-post="/sign-up" hx-swap="outerHTML" hx-target="this" class="space-y-2">
+		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				for="username"
@@ -55,8 +53,13 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				name="username"
 				value={ creds.Username }
 			/>
+			<div class="min-h-4">
+				if errors.Username != "" {
+					<p class="text-danger animate-fade-in text-sm ">{ errors.Username }</p>
+				}
+			</div>
 		</div>
-		<div class="space-y-2">
+		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				for="email"
@@ -73,8 +76,13 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				name="email"
 				value={ creds.Email }
 			/>
+			<div class="min-h-4">
+				if errors.Email != "" {
+					<p class="text-danger animate-fade-in text-sm">{ errors.Email }</p>
+				}
+			</div>
 		</div>
-		<div class="space-y-2">
+		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				for="password"
@@ -90,8 +98,13 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				type="password"
 				name="password"
 			/>
+			<div class="min-h-4">
+				if errors.Password != "" {
+					<p class="text-danger animate-fade-in text-sm">{ errors.Password }</p>
+				}
+			</div>
 		</div>
-		<div class="space-y-2">
+		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				for="confirm-password"
@@ -107,6 +120,11 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				type="password"
 				name="confirm-password"
 			/>
+			<div class="min-h-4">
+				if errors.Other != "" {
+					<p class="text-danger animate-fade-in text-sm">{ errors.Other }</p>
+				}
+			</div>
 		</div>
 		<button
 			class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"

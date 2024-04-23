@@ -28,8 +28,13 @@ module.exports = {
 			},
 			animation: {
 				grow: 'grow 1s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out',
 			},
 			keyframes: {
+				'fade-in': {
+					'0%': { opacity: 0 },
+					'100%': { opacity: 1 },
+				},
 				grow: {
 					//width grows from 0 to 100%
 					'0%': { width: '0%', opacity: 0 },
