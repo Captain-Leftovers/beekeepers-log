@@ -5,4 +5,5 @@ tmp
 TODO.md
 bin
 *_templ.go*
-*_templ.go
+**/*_templ.go
+**/*_templ.txt

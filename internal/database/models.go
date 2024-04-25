@@ -9,7 +9,7 @@ import (
 )
 
 type User struct {
-	ID        interface{}
+	ID        string
 	Username  string
 	Email     string
 	Password  string

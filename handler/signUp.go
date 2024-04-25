@@ -29,7 +29,7 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 		if err := r.ParseForm(); err != nil {
 			logError(r, err)
 		}
-
+		// TODO : see validation and maybe validation packaage see how all user input is validated in go
 		username := r.FormValue("username")
 
 		email := r.FormValue("email")
@@ -69,7 +69,7 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 		}
 
 		user, err := DBQ.CreateUser(r.Context(), database.CreateUserParams{
-			ID:        uuid.New(),
+			ID:        uuid.New().String(),
 			Username:  username,
 			Email:     email,
 			Password:  hashedPassword,

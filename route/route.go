@@ -10,6 +10,7 @@ import (
 
 func AddRoutes(
 	mux *chi.Mux,
+	JWT_SECRET string,
 	DBQ *database.Queries,
 ) {
 
@@ -22,7 +23,7 @@ func AddRoutes(
 	router.Get("/", handler.HandleHomeIndex())
 
 	router.Get("/sign-in", handler.HandleSignInIndex())
-	router.Post("/sign-in", handler.HandlePostSignIn())
+	router.Post("/sign-in", handler.HandlePostSignIn(DBQ, JWT_SECRET))
 
 	router.Get("/sign-up", handler.HandleSignUpIndex())
 	router.Post("/sign-up", handler.HandlePostSignUpForm(DBQ))

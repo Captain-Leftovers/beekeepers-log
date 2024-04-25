@@ -32,7 +32,7 @@ type SignInCredentials struct {
 }
 
 templ SignInForm(creds SignInCredentials, errors SignInErrors) {
-	<form action="" hx-post="/sign-in" class="space-y-4">
+	<form action="" hx-post="/sign-in" class="">
 		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -50,7 +50,11 @@ templ SignInForm(creds SignInCredentials, errors SignInErrors) {
 				name="email"
 				value={ creds.Email }
 			/>
-			<p class="text-danger text-sm">{ errors.Email }</p>
+			<div class="min-h-5">
+				if errors.Email != "" {
+					<p class="text-danger text-sm">{ errors.Email }</p>
+				}
+			</div>
 		</div>
 		<div>
 			<label
@@ -68,10 +72,17 @@ templ SignInForm(creds SignInCredentials, errors SignInErrors) {
 				type="password"
 				name="password"
 			/>
-			<p class="text-danger text-sm">{ errors.Password }</p>
+			<div class="min-h-5">
+				if errors.Password != "" {
+					<p class="text-danger text-sm">{ errors.Password }</p>
+				}
+				if errors.Other != "" {
+					<p class="text-danger animate-fade-in text-sm">{ errors.Other }</p>
+				}
+			</div>
 		</div>
 		<button
-			class="inline-flex items-center text-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"
+			class="inline-flex items-center text-center justify-center w-full h-10 px-4 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"
 			type="submit"
 		>
 			Sign In

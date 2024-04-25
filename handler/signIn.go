@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
 	"github.com/Captain-Leftovers/beekeepers-log/view/signIn"
 
 	"net/http"
@@ -18,7 +19,7 @@ func HandleSignInIndex() http.HandlerFunc {
 
 }
 
-func HandlePostSignIn() http.HandlerFunc {
+func HandlePostSignIn(DBQ *database.Queries, JWT_SECRET string) http.HandlerFunc {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
@@ -27,21 +28,16 @@ func HandlePostSignIn() http.HandlerFunc {
 		}
 
 		email := r.FormValue("email")
-		// password := r.FormValue("password")
+		password := r.FormValue("password")
 
-		// TODO : validate the form data
-		loginSuccess := false
-
-		if loginSuccess {
-			//TODO : redirect to home page
-		} else {
+		err := HandleLogInUser(DBQ, JWT_SECRET, w, r, email, password)
+		if err != nil {
 			creds := signIn.SignInCredentials{
 				Email: email,
 			}
 
 			errs := signIn.SignInErrors{
-				Email:    "Email is not a valid email format or does not exist in the database",
-				Password: "Password is incorrect format",
+				Other: "Incorrect email or password",
 			}
 
 			err := signIn.SignInForm(creds, errs).Render(r.Context(), w)
@@ -49,7 +45,8 @@ func HandlePostSignIn() http.HandlerFunc {
 				logError(r, err)
 			}
 
-		}
+			return
 
+		}
 	})
 }

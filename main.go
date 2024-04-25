@@ -44,6 +44,11 @@ func main() {
 		log.Fatal("$TURSO_CONNECTION_STRING must be set")
 	}
 
+	JWT_SECRET := os.Getenv("JWT_SECRET")
+	if JWT_SECRET == "" {
+		log.Fatal("$JWT_SECRET must be set")
+	}
+
 	db, err := sql.Open("libsql", TURSO_CONNECTION_STRING)
 	if err != nil {
 		log.Fatal(err)
@@ -51,7 +56,7 @@ func main() {
 
 	DBQ := database.New(db)
 
-	srv := appConfig.NewServer(DBQ)
+	srv := appConfig.NewServer(DBQ, JWT_SECRET)
 
 	slog.Info("Starting server on", "port", PORT)
 

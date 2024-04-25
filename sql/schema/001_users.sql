@@ -1,6 +1,6 @@
 -- +goose Up
 CREATE TABLE users(
-    id UUID PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,

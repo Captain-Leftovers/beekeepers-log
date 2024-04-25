@@ -10,8 +10,8 @@ import (
 )
 
 func NewServer(
-
 	DBQ *database.Queries,
+	JWT_SECRET string,
 
 ) http.Handler {
 	mux := chi.NewMux()
@@ -30,6 +30,7 @@ func NewServer(
 
 	route.AddRoutes(
 		handler,
+		JWT_SECRET,
 		DBQ,
 	)
 

@@ -35,7 +35,7 @@ type SignUpCredentials struct {
 
 // TODO :  after the post request make it to replace the form not add anotherz
 templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
-	<form id="sign-up-form" action="" hx-post="/sign-up" hx-swap="outerHTML" hx-target="this" class="space-y-2">
+	<form id="sign-up-form" action="" hx-post="/sign-up" hx-swap="outerHTML" hx-target="this" class="">
 		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -52,8 +52,9 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				required="true"
 				name="username"
 				value={ creds.Username }
+				pattern="[a-zA-Z0-9]+"
 			/>
-			<div class="min-h-4">
+			<div class="min-h-5">
 				if errors.Username != "" {
 					<p class="text-danger animate-fade-in text-sm ">{ errors.Username }</p>
 				}
@@ -76,7 +77,7 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				name="email"
 				value={ creds.Email }
 			/>
-			<div class="min-h-4">
+			<div class="min-h-5">
 				if errors.Email != "" {
 					<p class="text-danger animate-fade-in text-sm">{ errors.Email }</p>
 				}
@@ -97,8 +98,9 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				title="Password must be at least 3 characters long."
 				type="password"
 				name="password"
+				pattern={ `^.{3,}$` }
 			/>
-			<div class="min-h-4">
+			<div class="min-h-5">
 				if errors.Password != "" {
 					<p class="text-danger animate-fade-in text-sm">{ errors.Password }</p>
 				}
@@ -119,8 +121,9 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 				title="Password must be at least 3 characters long."
 				type="password"
 				name="confirm-password"
+				pattern={ `^.{3,}$` }
 			/>
-			<div class="min-h-4">
+			<div class="min-h-5">
 				if errors.Other != "" {
 					<p class="text-danger animate-fade-in text-sm">{ errors.Other }</p>
 				}
