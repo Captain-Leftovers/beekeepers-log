@@ -30,4 +30,10 @@ func AddRoutes(
 	router.Post("/sign-up", handler.HandlePostSignUpForm(DBQ, JWT_SECRET))
 
 	router.Get("/sign-out", handler.LogOutHandler())
+
+	// TODO :  see how to make this a group that only is available to logged in users
+
+	//  router.Group(func(r chi.Router) {
+
+	// })
 }

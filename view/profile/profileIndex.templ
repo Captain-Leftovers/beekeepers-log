@@ -1,0 +1,83 @@
+package profile
+
+import "github.com/Captain-Leftovers/beekeepers-log/view/layout"
+
+templ ProfileIndex() {
+	@layout.BaseLayout(true, "sign-in") {
+		<section class="flex flex-col items-center justify-center py-12 sm:px-6 lg:px-8">
+			<div class="w-full max-w-md space-y-8">
+				<div>
+					<span class="relative flex shrink-0 overflow-hidden rounded-full mx-auto h-24 w-24">
+						<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">JP</span>
+					</span>
+					<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+						Update your profile
+					</h2>
+				</div>
+				<form class="mt-8 space-y-6" action="#" method="POST">
+					<input type="hidden" value="true" name="remember"/>
+					<div class="-space-y-px rounded-md shadow-sm">
+						<div>
+							<label
+								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+								for="username"
+							>
+								Username
+							</label>
+							<input
+								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+								id="username"
+								autocomplete="username"
+								required=""
+								type="text"
+								value="jaredpalmer"
+								name="username"
+							/>
+						</div>
+						<div>
+							<label
+								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+								for="email"
+							>
+								Email address
+							</label>
+							<input
+								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+								id="email"
+								autocomplete="email"
+								required=""
+								type="email"
+								value="jared@example.com"
+								name="email"
+							/>
+						</div>
+						<div>
+							<label
+								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+								for="password"
+							>
+								Password
+							</label>
+							<input
+								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+								id="password"
+								autocomplete="current-password"
+								required=""
+								type="password"
+								name="password"
+							/>
+						</div>
+					</div>
+					<div>
+						<button
+							class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+							type="submit"
+						>
+							Save Changes
+						</button>
+					</div>
+				</form>
+			</div>
+		</section>
+	}
+}

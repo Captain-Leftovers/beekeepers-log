@@ -45,6 +45,14 @@ templ Nav(active ActiveLink, user types.AuthenticatedUser) {
 						</div>
 					</a>
 				} else {
+					<div class="relative">
+						<a href="#" class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+							{ user.Username }
+						</a>
+						if active == "sign-in" {
+							<span class="absolute -bottom-0 left-0 w-full h-[2px] bg-green-300 animate-grow"></span>
+						}
+					</div>
 					<a href="sign-out" class="inline-flex items-center justify-center px-3 py-2 text-white bg-indigo-500 font-medium leading-6 whitespace-no-wrap border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" data-rounded="rounded-md" data-primary="indigo-600">
 						<div class="relative">
 							Sign out
