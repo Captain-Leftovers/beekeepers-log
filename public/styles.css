@@ -637,20 +637,20 @@ video {
   height: 2px;
 }
 
-.min-h-4 {
-  min-height: 1rem;
-}
-
-.min-h-screen {
-  min-height: 100vh;
+.h-\[calc\(100\%-1rem\)\] {
+  height: calc(100% - 1rem);
 }
 
 .min-h-5 {
   min-height: 1.25rem;
 }
 
-.min-h-6 {
-  min-height: 1.5rem;
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.w-\[calc\(100\%-1rem\)\] {
+  width: calc(100% - 1rem);
 }
 
 .w-full {
@@ -741,22 +741,10 @@ video {
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
 .whitespace-nowrap {
@@ -800,29 +788,9 @@ video {
   background-color: rgb(13 71 161 / var(--tw-bg-opacity));
 }
 
-.bg-stone-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(231 229 228 / var(--tw-bg-opacity));
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(161 98 7 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(113 63 18 / var(--tw-bg-opacity));
-}
-
-.bg-green-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
 }
 
 .px-3 {
@@ -954,11 +922,6 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-yellow-400 {
-  --tw-text-opacity: 1;
-  color: rgb(250 204 21 / var(--tw-text-opacity));
-}
-
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
@@ -1065,8 +1028,17 @@ video {
   cursor: not-allowed;
 }
 
+.disabled\:bg-primary-disabled:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 202 249 / var(--tw-bg-opacity));
+}
+
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
+}
+
+.group:disabled .group-disabled\:hidden {
+  display: none;
 }
 
 .peer:disabled ~ .peer-disabled\:cursor-not-allowed {

@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"time"
+
 	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
 	"github.com/Captain-Leftovers/beekeepers-log/view/signIn"
 
@@ -9,6 +11,8 @@ import (
 
 func HandleSignInIndex() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		r = HandleLogOutUser(w, r)
 
 		err := signIn.SignInIndex().Render(r.Context(), w)
 
@@ -23,6 +27,8 @@ func HandlePostSignIn(DBQ *database.Queries, JWT_SECRET string) http.HandlerFunc
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+		time.Sleep(time.Second * 3)
+
 		if err := r.ParseForm(); err != nil {
 			logError(r, err)
 		}
@@ -30,7 +36,7 @@ func HandlePostSignIn(DBQ *database.Queries, JWT_SECRET string) http.HandlerFunc
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 
-		err := HandleLogInUser(DBQ, JWT_SECRET, w, r, email, password)
+		err := HandleLogInUser(database.User{}, DBQ, JWT_SECRET, w, r, email, password)
 		if err != nil {
 			creds := signIn.SignInCredentials{
 				Email: email,

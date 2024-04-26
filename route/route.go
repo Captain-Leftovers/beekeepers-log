@@ -5,6 +5,7 @@ import (
 
 	"github.com/Captain-Leftovers/beekeepers-log/handler"
 	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
+	"github.com/Captain-Leftovers/beekeepers-log/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -14,9 +15,9 @@ func AddRoutes(
 	DBQ *database.Queries,
 ) {
 
-	// TODO : see how do pass the DBQ to the handlers
-
 	router := mux
+
+	router.Use(middleware.AddUserIfLoggedIn(JWT_SECRET, DBQ))
 
 	router.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
 
@@ -26,5 +27,7 @@ func AddRoutes(
 	router.Post("/sign-in", handler.HandlePostSignIn(DBQ, JWT_SECRET))
 
 	router.Get("/sign-up", handler.HandleSignUpIndex())
-	router.Post("/sign-up", handler.HandlePostSignUpForm(DBQ))
+	router.Post("/sign-up", handler.HandlePostSignUpForm(DBQ, JWT_SECRET))
+
+	router.Get("/sign-out", handler.LogOutHandler())
 }

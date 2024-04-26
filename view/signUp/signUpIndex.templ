@@ -33,9 +33,8 @@ type SignUpCredentials struct {
 	Password string
 }
 
-// TODO :  after the post request make it to replace the form not add anotherz
 templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
-	<form id="sign-up-form" action="" hx-post="/sign-up" hx-swap="outerHTML" hx-target="this" class="">
+	<form id="sign-up-form" action="" hx-post="/sign-up" hx-swap="outerHTML" hx-target="this" class="" hx-disabled-elt="button, input, #sign-out-text">
 		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -56,7 +55,7 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 			/>
 			<div class="min-h-5">
 				if errors.Username != "" {
-					<p class="text-danger animate-fade-in text-sm ">{ errors.Username }</p>
+					<p class="text-sm text-danger animate-fade-in ">{ errors.Username }</p>
 				}
 			</div>
 		</div>
@@ -79,7 +78,7 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 			/>
 			<div class="min-h-5">
 				if errors.Email != "" {
-					<p class="text-danger animate-fade-in text-sm">{ errors.Email }</p>
+					<p class="text-sm text-danger animate-fade-in">{ errors.Email }</p>
 				}
 			</div>
 		</div>
@@ -102,7 +101,7 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 			/>
 			<div class="min-h-5">
 				if errors.Password != "" {
-					<p class="text-danger animate-fade-in text-sm">{ errors.Password }</p>
+					<p class="text-sm text-danger animate-fade-in">{ errors.Password }</p>
 				}
 			</div>
 		</div>
@@ -125,16 +124,16 @@ templ SignUpForm(creds SignUpCredentials, errors SignUpErrors) {
 			/>
 			<div class="min-h-5">
 				if errors.Other != "" {
-					<p class="text-danger animate-fade-in text-sm">{ errors.Other }</p>
+					<p class="text-sm text-danger animate-fade-in">{ errors.Other }</p>
 				}
 			</div>
 		</div>
 		<button
-			class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"
+			class="relative inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md group whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-primary-disabled"
 			type="submit"
 		>
-			Sign Up
-			<img class="htmx-indicator" src="public/assets/svg/ball-triangle.svg" alt=""/>
+			<p id="sign-out-text" class="group-disabled:hidden">Sign In</p>
+			<img id="spinner" class="htmx-indicator absolute w-[calc(100%-1rem)] h-[calc(100%-1rem)]" src="public/assets/svg/ball-triangle.svg" alt=""/>
 		</button>
 	</form>
 }

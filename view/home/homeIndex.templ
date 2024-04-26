@@ -2,16 +2,14 @@ package home
 
 import (
 	"github.com/Captain-Leftovers/beekeepers-log/view/layout"
+	"github.com/Captain-Leftovers/beekeepers-log/util"
 )
 
 templ Index() {
 	@layout.BaseLayout(true, "/") {
 		<div class="text-4xl bg-blue-900">
 			<h1 class="text-green-100">Home</h1>
-			<p class="bg-yellow-700">Welcome to the home page!!</p>
-			<p class="bg-stone-200">Welcome to the home page!!</p>
-			<p class="bg-yellow-900 text-yellow-400">Welcome to the home page!!</p>
-			<p class="">Welcome to the home page!!</p>
+			<p>Welcome { util.GetUserFromContext(ctx).Username }</p>
 		</div>
 	}
 }

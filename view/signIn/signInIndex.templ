@@ -18,8 +18,6 @@ templ SignInIndex() {
 	}
 }
 
-// TODO : add sign in errors and credentials to handlers after submitting the form
-
 type SignInErrors struct {
 	Email    string
 	Password string
@@ -32,7 +30,7 @@ type SignInCredentials struct {
 }
 
 templ SignInForm(creds SignInCredentials, errors SignInErrors) {
-	<form action="" hx-post="/sign-in" class="">
+	<form action="" hx-post="/sign-in" class="" hx-disabled-elt="button, input, #sign-in-text">
 		<div class="">
 			<label
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -52,7 +50,7 @@ templ SignInForm(creds SignInCredentials, errors SignInErrors) {
 			/>
 			<div class="min-h-5">
 				if errors.Email != "" {
-					<p class="text-danger text-sm">{ errors.Email }</p>
+					<p class="text-sm text-danger">{ errors.Email }</p>
 				}
 			</div>
 		</div>
@@ -74,20 +72,19 @@ templ SignInForm(creds SignInCredentials, errors SignInErrors) {
 			/>
 			<div class="min-h-5">
 				if errors.Password != "" {
-					<p class="text-danger text-sm">{ errors.Password }</p>
+					<p class="text-sm text-danger">{ errors.Password }</p>
 				}
 				if errors.Other != "" {
-					<p class="text-danger animate-fade-in text-sm">{ errors.Other }</p>
+					<p class="text-sm text-danger animate-fade-in">{ errors.Other }</p>
 				}
 			</div>
 		</div>
 		<button
-			class="inline-flex items-center text-center justify-center w-full h-10 px-4 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90"
+			class="relative inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-center transition-colors rounded-md group whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-primary-disabled"
 			type="submit"
 		>
-			Sign In
+			<p id="sign-in-text" class="group-disabled:hidden">Sign In</p>
+			<img id="spinner" class="htmx-indicator absolute w-[calc(100%-1rem)] h-[calc(100%-1rem)]" src="public/assets/svg/ball-triangle.svg" alt=""/>
 		</button>
-		// TODO : Add a spinner here maybe inside the button
-		// <img class="htmx-indicator" src="public/assets/svg/ball-triangle.svg" alt=""/>
 	</form>
 }

@@ -1,6 +1,7 @@
 package layout
 
 import "github.com/Captain-Leftovers/beekeepers-log/view/ui"
+import "github.com/Captain-Leftovers/beekeepers-log/util"
 
 templ BaseLayout(showNav bool, active ui.ActiveLink) {
 	<!DOCTYPE html>
@@ -20,7 +21,7 @@ templ BaseLayout(showNav bool, active ui.ActiveLink) {
 		</head>
 		<body class="flex flex-col min-h-screen bg-background">
 			if showNav {
-				@ui.Nav(active)
+				@ui.Nav(active, util.GetUserFromContext(ctx))
 			}
 			{ children... }
 		</body>

@@ -14,6 +14,8 @@ import (
 func HandleSignUpIndex() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+		r = HandleLogOutUser(w, r)
+
 		err := signUp.SignUpIndex().Render(r.Context(), w)
 		if err != nil {
 			logError(r, err)
@@ -23,7 +25,7 @@ func HandleSignUpIndex() http.HandlerFunc {
 
 }
 
-func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
+func HandlePostSignUpForm(DBQ *database.Queries, JWT_SECRET string) http.HandlerFunc {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
@@ -68,7 +70,7 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 
 		}
 
-		user, err := DBQ.CreateUser(r.Context(), database.CreateUserParams{
+		dbUser, err := DBQ.CreateUser(r.Context(), database.CreateUserParams{
 			ID:        uuid.New().String(),
 			Username:  username,
 			Email:     email,
@@ -86,13 +88,23 @@ func HandlePostSignUpForm(DBQ *database.Queries) http.HandlerFunc {
 				logError(r, err)
 			}
 
+			slog.Info("User created", "user", dbUser)
 			return
 
 		}
 
-		slog.Info("User created", "user", user)
+		err = HandleLogInUser(dbUser, DBQ, JWT_SECRET, w, r, email, password)
 
-		w.Header().Set("HX-Redirect", "/")
-		w.WriteHeader(http.StatusSeeOther)
+		if err != nil {
+			logError(r, err)
+
+			formErr.Other = "Incorrect email or password"
+			err := signUp.SignUpForm(formCreds, formErr).Render(r.Context(), w)
+			if err != nil {
+				logError(r, err)
+			}
+
+		}
+
 	})
 }

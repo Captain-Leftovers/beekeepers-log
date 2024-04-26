@@ -3,7 +3,7 @@ package auth
 import (
 	"context"
 	"errors"
-	"net/http"
+	"log/slog"
 	"time"
 
 	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
@@ -11,10 +11,6 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
-
-func AddUserToContext(r *http.Request, user types.AuthenticatedUser) *http.Request {
-	return r.WithContext(context.WithValue(r.Context(), types.UserKey, user))
-}
 
 func HashNewPassword(pass string) (string, error) {
 
@@ -69,7 +65,7 @@ func MakeJWT(
 }
 
 // RefreshToken -
-func RefreshToken(DBQ *database.Queries, ctx context.Context, tokenString string, tokenSecret string) (string, error) {
+func UseRefreshToken(DBQ *database.Queries, ctx context.Context, tokenString string, tokenSecret string) (string, types.AuthenticatedUser, error) {
 	claimsStruct := types.MyCustomClaims{}
 	token, err := jwt.ParseWithClaims(
 		tokenString,
@@ -77,20 +73,20 @@ func RefreshToken(DBQ *database.Queries, ctx context.Context, tokenString string
 		func(token *jwt.Token) (interface{}, error) { return []byte(tokenSecret), nil },
 	)
 	if err != nil {
-		return "", err
+		return "", types.AuthenticatedUser{}, err
 	}
 
 	issuer, err := token.Claims.GetIssuer()
 	if err != nil {
-		return "", err
+		return "", types.AuthenticatedUser{}, err
 	}
 	if issuer != string(TokenTypeRefresh) {
-		return "", errors.New("invalid issuer")
+		return "", types.AuthenticatedUser{}, errors.New("invalid issuer")
 	}
 
 	dbUser, err := DBQ.GetUserById(ctx, claimsStruct.User.ID)
 	if err != nil {
-		return "", err
+		return "", types.AuthenticatedUser{}, err
 	}
 
 	jwtUser := types.JWTUser{
@@ -99,52 +95,60 @@ func RefreshToken(DBQ *database.Queries, ctx context.Context, tokenString string
 		Username: dbUser.Username,
 	}
 
-	newToken, err := MakeJWT(
+	newAccessToken, err := MakeJWT(
 		jwtUser,
 		tokenSecret,
 		time.Hour*4,
 		TokenTypeAccess,
 	)
 	if err != nil {
-		return "", err
+		return "", types.AuthenticatedUser{}, err
 	}
 
-	return newToken, nil
+	return newAccessToken, types.AuthenticatedUser{
+		ID:         dbUser.ID,
+		Email:      dbUser.Email,
+		Username:   dbUser.Username,
+		IsLoggedIn: true,
+	}, nil
 }
 
 // ValidateJWT -
 func ValidateJWTAndGetUser(tokenString, tokenSecret string) (types.JWTUser, error) {
-	claimsStruct := jwt.RegisteredClaims{}
+
+	claimsStruct := types.MyCustomClaims{}
 	token, err := jwt.ParseWithClaims(
 		tokenString,
 		&claimsStruct,
 		func(token *jwt.Token) (interface{}, error) { return []byte(tokenSecret), nil },
 	)
 	if err != nil {
+
+		slog.Info("Error inside ValidateJWTAndGetUser" + err.Error())
+
 		return types.JWTUser{}, err
 	}
 
 	if !token.Valid {
+
 		return types.JWTUser{}, errors.New("invalid token")
 	}
 
 	issuer, err := token.Claims.GetIssuer()
 	if err != nil {
+
+		slog.Info("Error inside ValidateJWTAndGetUser" + err.Error())
 		return types.JWTUser{}, err
 	}
 	if issuer != string(TokenTypeAccess) {
+
+		slog.Info("Error inside ValidateJWTAndGetUser", "invalid issuer", issuer)
 		return types.JWTUser{}, errors.New("invalid issuer")
 	}
 
 	user := types.JWTUser{}
 
-	claims, ok := token.Claims.(*types.MyCustomClaims)
-
-	if !ok {
-		return types.JWTUser{}, errors.New("invalid claims")
-	}
-
-	user = claims.User
+	user = claimsStruct.User
 
 	return user, nil
 }
