@@ -3,10 +3,18 @@ package profile
 import "github.com/Captain-Leftovers/beekeepers-log/view/layout"
 import "github.com/Captain-Leftovers/beekeepers-log/types"
 
+// TODO : add a spinner and indicator
+
+// TODO : add a password change functionality
 templ ProfileIndex(user types.AuthenticatedUser) {
 	@layout.BaseLayout(true, "sign-in") {
 		<section class="flex flex-col flex-grow justify-center w-full items-center">
-			<main class="max-w-[600px] w-[calc(100%-10rem)]">
+			<form
+				class="max-w-[600px] w-[calc(100%-10rem)]"
+				hx-confirm="Are you sure you want to change your details?"
+				hx-post="/profile"
+				hx-swap="none"
+			>
 				<div class="rounded-lg border bg-background text-background-foreground shadow-sm">
 					<div class="flex flex-col space-y-1.5 p-6">
 						<h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Profile</h3>
@@ -23,6 +31,8 @@ templ ProfileIndex(user types.AuthenticatedUser) {
 							<input
 								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 								id="username"
+								type="text"
+								name="username"
 								placeholder="Enter your username"
 								autoComplete="username"
 								value={ user.Username }
@@ -39,39 +49,31 @@ templ ProfileIndex(user types.AuthenticatedUser) {
 								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 								type="email"
 								id="email"
+								name="email"
 								placeholder="Enter your email"
 								autoComplete="email"
 								value={ user.Email }
 							/>
 						</div>
 						<div class="space-y-2">
-							<button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+							<button
+								class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+								disabled
+							>
 								Change Password
 							</button>
 						</div>
-						<div class="space-y-2">
-							<p
-								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-							>
-								Avatar
-							</p>
-							<div class="flex items-center gap-4">
-								<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-									<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">CN</span>
-								</span>
-								<button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
-									Upload
-								</button>
-							</div>
-						</div>
 					</div>
 					<div class="flex items-center border-t p-6">
-						<button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+						<button
+							type="submit"
+							class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+						>
 							Save Changes
 						</button>
 					</div>
 				</div>
-			</main>
+			</form>
 		</section>
 	}
 }

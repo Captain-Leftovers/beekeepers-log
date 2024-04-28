@@ -19,10 +19,12 @@ func AddRoutes(
 
 	mainRouter.Use(middleware.AddUserIfLoggedIn(JWT_SECRET, DBQ))
 
+	// Public Routes
 	mainRouter.Group(func(r chi.Router) {
 
 		mainRouter.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
 
+		mainRouter.NotFound(handler.NotFoundHandler())
 		mainRouter.Get("/", handler.HandleHomeIndex())
 
 		mainRouter.Get("/sign-in", handler.HandleSignInIndex())
@@ -39,8 +41,9 @@ func AddRoutes(
 		r.Use(middleware.RequireAuth())
 
 		r.Get("/sign-out", handler.LogOutHandler())
-		
+
 		r.Get("/profile", handler.ProfileIndex())
+		r.Post("/profile", handler.HandleProfilePost(DBQ))
 	})
 
 }

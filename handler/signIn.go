@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"time"
-
 	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
 	"github.com/Captain-Leftovers/beekeepers-log/view/signIn"
 
@@ -27,8 +25,7 @@ func HandlePostSignIn(DBQ *database.Queries, JWT_SECRET string) http.HandlerFunc
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		time.Sleep(time.Second * 3)
-
+		
 		if err := r.ParseForm(); err != nil {
 			logError(r, err)
 		}

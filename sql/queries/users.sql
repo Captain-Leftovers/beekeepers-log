@@ -14,3 +14,10 @@ LIMIT 1;
 SELECT * FROM users 
 WHERE id = ?
 LIMIT 1;
+
+
+-- name: UpdateUser :one
+UPDATE users
+SET username = ?, email = ?, password = ?, updated_at = ?
+WHERE id = ?
+RETURNING *;
