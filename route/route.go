@@ -15,25 +15,32 @@ func AddRoutes(
 	DBQ *database.Queries,
 ) {
 
-	router := mux
+	mainRouter := mux
 
-	router.Use(middleware.AddUserIfLoggedIn(JWT_SECRET, DBQ))
+	mainRouter.Use(middleware.AddUserIfLoggedIn(JWT_SECRET, DBQ))
 
-	router.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
+	mainRouter.Group(func(r chi.Router) {
 
-	router.Get("/", handler.HandleHomeIndex())
+		mainRouter.Handle("/public/*", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
 
-	router.Get("/sign-in", handler.HandleSignInIndex())
-	router.Post("/sign-in", handler.HandlePostSignIn(DBQ, JWT_SECRET))
+		mainRouter.Get("/", handler.HandleHomeIndex())
 
-	router.Get("/sign-up", handler.HandleSignUpIndex())
-	router.Post("/sign-up", handler.HandlePostSignUpForm(DBQ, JWT_SECRET))
+		mainRouter.Get("/sign-in", handler.HandleSignInIndex())
+		mainRouter.Post("/sign-in", handler.HandlePostSignIn(DBQ, JWT_SECRET))
 
-	router.Get("/sign-out", handler.LogOutHandler())
+		mainRouter.Get("/sign-up", handler.HandleSignUpIndex())
+		mainRouter.Post("/sign-up", handler.HandlePostSignUpForm(DBQ, JWT_SECRET))
 
-	// TODO :  see how to make this a group that only is available to logged in users
+	})
 
-	//  router.Group(func(r chi.Router) {
+	// Private Routes
+	// Require Authentication
+	mainRouter.Group(func(r chi.Router) {
+		r.Use(middleware.RequireAuth())
 
-	// })
+		r.Get("/sign-out", handler.LogOutHandler())
+		
+		r.Get("/profile", handler.ProfileIndex())
+	})
+
 }

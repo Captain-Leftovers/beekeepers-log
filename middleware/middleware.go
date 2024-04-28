@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"log/slog"
 	"net/http"
 	"strings"
 
@@ -26,7 +25,6 @@ func CorsMiddleware(next http.Handler) http.Handler {
 }
 
 func AddUserIfLoggedIn(JWT_TOKEN string, DBQ *database.Queries) func(h http.Handler) http.Handler {
-	slog.Info("Adding user if logged in middleware")
 	return func(h http.Handler) http.Handler {
 
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -51,5 +49,22 @@ func AddUserIfLoggedIn(JWT_TOKEN string, DBQ *database.Queries) func(h http.Hand
 			h.ServeHTTP(w, r)
 		})
 
+	}
+}
+
+func RequireAuth() func(http.Handler) http.Handler {
+
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+			user := util.GetUserFromContext(r.Context())
+			if user.IsLoggedIn == true {
+
+				next.ServeHTTP(w, r)
+				return
+			}
+
+			http.Redirect(w, r, "/sign-in", http.StatusSeeOther)
+		})
 	}
 }
