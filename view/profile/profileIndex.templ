@@ -5,9 +5,7 @@ import "github.com/Captain-Leftovers/beekeepers-log/types"
 
 // TODO : add a spinner and indicator
 
-// TODO : add a password change functionality
-
-// TODO : see how to make the skip confirmation html not to pop instantly on the page but to grow or something maybe change the h-swap or anything
+// TODO : add errors if errors ffound on validation
 templ ProfileIndex(user types.AuthenticatedUser) {
 	@layout.BaseLayout(true, "sign-in") {
 		<section class="flex flex-col flex-grow justify-center w-full items-center">
@@ -98,6 +96,8 @@ templ ChangePasswordFields() {
 				id="current-password"
 				name="current-password"
 				placeholder="Enter your current password"
+				required
+				pattern=".{3,}"
 			/>
 		</div>
 		<div class="space-y-2">
@@ -113,6 +113,8 @@ templ ChangePasswordFields() {
 				id="new-password"
 				name="new-password"
 				placeholder="Enter your new password"
+				required
+				pattern=".{3,}"
 			/>
 		</div>
 		<div class="space-y-2">
@@ -128,6 +130,8 @@ templ ChangePasswordFields() {
 				id="repeat-password"
 				name="repeat-new-password"
 				placeholder="Enter your new password again"
+				required
+				pattern=".{3,}"
 			/>
 		</div>
 	</div>

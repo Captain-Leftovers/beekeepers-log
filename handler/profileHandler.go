@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Captain-Leftovers/beekeepers-log/internal/auth"
 	"github.com/Captain-Leftovers/beekeepers-log/internal/database"
 	"github.com/Captain-Leftovers/beekeepers-log/util"
 	"github.com/Captain-Leftovers/beekeepers-log/view/profile"
@@ -37,6 +38,10 @@ func HandleProfilePost(DBQ *database.Queries) http.HandlerFunc {
 		formUsername := r.FormValue("username")
 		formEmail := r.FormValue("email")
 
+		formCurrentPassword := r.FormValue("current-password")
+		formNewPassword := r.FormValue("new-password")
+		formRepeatNewPassword := r.FormValue("repeat-new-password")
+
 		userFromCtx := util.GetUserFromContext(r.Context())
 
 		userFromDb, err := DBQ.GetUserById(r.Context(), userFromCtx.ID)
@@ -45,11 +50,15 @@ func HandleProfilePost(DBQ *database.Queries) http.HandlerFunc {
 			return
 		}
 
+		var pass string
+
+		pass, _ = changePass(userFromDb, formCurrentPassword, formNewPassword, formRepeatNewPassword)
+
 		userForUpdate := database.UpdateUserParams{
 			Username:  formUsername,
 			Email:     formEmail,
 			ID:        userFromDb.ID,
-			Password:  userFromDb.Password,
+			Password:  pass,
 			UpdatedAt: time.Now().UTC(),
 		}
 
@@ -74,5 +83,30 @@ func ChangePasswordFields() http.HandlerFunc {
 		}
 
 	})
+
+}
+
+func changePass(userFromDb database.User, formCurrentPassword string, formNewPassword string, formRepeatNewPassword string) (pass string, ok bool) {
+	if formCurrentPassword == "" || formNewPassword == "" || formRepeatNewPassword == "" {
+
+		return userFromDb.Password, false
+	}
+
+	if formNewPassword != formRepeatNewPassword {
+
+		return userFromDb.Password, false
+	}
+
+	if err := auth.CompareHashToPass(userFromDb.Password, formCurrentPassword); err != nil {
+		return userFromDb.Password, false
+	}
+
+	hashedPass, err := auth.HashNewPassword(formNewPassword)
+
+	if err != nil {
+		return userFromDb.Password, false
+	}
+
+	return hashedPass, true
 
 }
