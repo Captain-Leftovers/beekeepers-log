@@ -1,0 +1,17 @@
+package testingView
+
+templ Colors() {
+	<div
+		id="test"
+		class="bg-blue-400 transition-all duration-1000 ease-in"
+		hx-get="/colors"
+		hx-swap="outerHTML"
+		hx-trigger="click"
+	>
+		<div class="">
+			<p>
+				test hereeeeeeeeeeeeeeeeee
+			</p>
+		</div>
+	</div>
+}

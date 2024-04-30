@@ -30,11 +30,22 @@ module.exports = {
 			animation: {
 				grow: 'grow 1s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
+				'grow-height': 'grow-height 5s ease-out',
+				'fade-out': 'fade-out 0.5s ease-out',
 			},
 			keyframes: {
 				'fade-in': {
 					'0%': { opacity: 0 },
 					'100%': { opacity: 1 },
+				},
+				'fade-out': {
+					'0%': { opacity: 1 },
+					'100%': { opacity: 0 },
+				},
+
+				'grow-height': {
+					'0%': { height: '0%', opacity: 0 },
+					'100%': { height: '100%', opacity: 1 },
 				},
 				grow: {
 					//width grows from 0 to 100%

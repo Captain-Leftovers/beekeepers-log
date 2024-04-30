@@ -63,3 +63,16 @@ func HandleProfilePost(DBQ *database.Queries) http.HandlerFunc {
 
 	})
 }
+
+func ChangePasswordFields() http.HandlerFunc {
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		err := profile.ChangePasswordFields().Render(r.Context(), w)
+		if err != nil {
+			logError(r, err)
+		}
+
+	})
+
+}

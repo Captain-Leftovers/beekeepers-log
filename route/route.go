@@ -44,6 +44,14 @@ func AddRoutes(
 
 		r.Get("/profile", handler.ProfileIndex())
 		r.Post("/profile", handler.HandleProfilePost(DBQ))
+		r.Get("/profile/change-password", handler.ChangePasswordFields())
 	})
+
+	//---------------------------------------------------
+	// TODO : test routes below remove them if not needed
+
+	mainRouter.Get("/colors", handler.TestColors())
+
+	//---------------------------------------------------
 
 }
