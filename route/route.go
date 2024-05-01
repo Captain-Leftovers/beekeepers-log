@@ -45,6 +45,12 @@ func AddRoutes(
 		r.Get("/profile", handler.ProfileIndex())
 		r.Post("/profile", handler.HandleProfilePost(DBQ))
 		r.Get("/profile/change-password", handler.ChangePasswordFields())
+
+		r.Get("/hivemind", handler.HandleHivemindIndex())
+		r.Get("/hivemind/hivemind", handler.HandleHivemindHivemind())
+		r.Get("/hivemind/inspections", handler.HandleHivemindInspections())
+		r.Get("/hivemind/hives", handler.HandleHivemindHives())
+		r.Get("/hivemind/farms", handler.HandleHivemindFarms())
 	})
 
 	//---------------------------------------------------

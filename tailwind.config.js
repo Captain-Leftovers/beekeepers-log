@@ -26,6 +26,11 @@ module.exports = {
 					DEFAULT: '#FFA000',
 					foreground: '#000000',
 				},
+				hover: {
+					DEFAULT: '#333336',
+					'dark-light': '#676793',
+					'light-dark': '#a6a6ae',
+				},
 			},
 			animation: {
 				grow: 'grow 1s ease-out',
