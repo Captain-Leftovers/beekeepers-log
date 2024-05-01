@@ -63,3 +63,5 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+PORT, srv))
 
 }
+
+// TODO : populate data in db after creating tables and migrations
