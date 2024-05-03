@@ -4,7 +4,6 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				// add primary, primary-foreground, background, background-foreground, and accent colors
 				primary: {
 					DEFAULT: '#0D47A1',
 					disabled: '#90CAF9',
@@ -62,5 +61,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [require('@tailwindcss/typography')],
 }
