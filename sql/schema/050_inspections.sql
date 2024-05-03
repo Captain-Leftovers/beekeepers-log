@@ -27,3 +27,6 @@ CREATE TABLE inspections(
 
 -- +goose Down
 DROP TABLE inspections;
+
+
+-- TODO see if you need to add farm_id to inspections table or not maybe the inspection id can be composite can  be composite

@@ -45,8 +45,11 @@ func HandleProfilePost(DBQ *database.Queries) http.HandlerFunc {
 		userFromCtx := util.GetUserFromContext(r.Context())
 
 		userFromDb, err := DBQ.GetUserById(r.Context(), userFromCtx.ID)
+
 		if err != nil {
+			HandleLogOutUser(w, r)
 			logError(r, err)
+
 			return
 		}
 
