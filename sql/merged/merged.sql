@@ -46,6 +46,9 @@ CREATE TABLE hives(
     FOREIGN KEY(farm_id) REFERENCES farms(id) ON DELETE CASCADE
 );
 
+CREATE INDEX farm_id_index ON hives(farm_id);
+
+
 -- +goose Down
 DROP TABLE hives;
 
@@ -76,8 +79,13 @@ CREATE TABLE inspections(
     FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE
 );
 
+CREATE INDEX hive_id_index ON inspections(hive_id);
+CREATE INDEX inspection_date_index ON inspections(inspection_date);
+
 -- +goose Down
-DROP TABLE inspections;-- +goose Up
+DROP TABLE inspections;
+
+-- +goose Up
 CREATE TABLE alerts(
     id TEXT PRIMARY KEY,
     hive_id TEXT NOT NULL,
@@ -91,6 +99,8 @@ CREATE TABLE alerts(
     CHECK (alert_type IN ('inspection', 'treatment', 'pest', 'disease')),
     FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE
 );
+CREATE INDEX hive_id_index ON alerts(hive_id);
+
 
 -- +goose Down
 DROP TABLE alerts;

@@ -13,5 +13,7 @@ CREATE TABLE alerts(
     FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE
 );
 
+CREATE INDEX hive_id_index ON alerts(hive_id);
+
 -- +goose Down
 DROP TABLE alerts;

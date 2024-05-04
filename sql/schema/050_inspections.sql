@@ -22,8 +22,12 @@ CREATE TABLE inspections(
     CHECK (eggs_present IN (0, 1)),
     CHECK (larvae_present IN (0, 1)),
     CHECK (capped_brood IN (0, 1)),
-    FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE
+    FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE,
 );
+
+CREATE INDEX hive_id_index ON inspections(hive_id);
+CREATE INDEX inspection_date_index ON inspections(inspection_date);
+
 
 -- +goose Down
 DROP TABLE inspections;

@@ -11,6 +11,8 @@ CREATE TABLE hives(
     FOREIGN KEY(farm_id) REFERENCES farms(id) ON DELETE CASCADE
 );
 
+CREATE INDEX farm_id_index ON hives(farm_id);
+
 -- +goose Down
 DROP TABLE hives;
 
