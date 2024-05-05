@@ -13,7 +13,7 @@ import (
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (id, username, email, password, created_at, updated_at)
 VALUES (?, ?, ?, ?, ?, ?)
-RETURNING id, username, email, password, created_at, updated_at
+RETURNING id, username, email, password, role, created_at, updated_at
 `
 
 type CreateUserParams struct {
@@ -40,6 +40,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Username,
 		&i.Email,
 		&i.Password,
+		&i.Role,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -47,7 +48,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, username, email, password, created_at, updated_at FROM users 
+SELECT id, username, email, password, role, created_at, updated_at FROM users 
 WHERE email = ?
 LIMIT 1
 `
@@ -60,6 +61,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 		&i.Username,
 		&i.Email,
 		&i.Password,
+		&i.Role,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -67,7 +69,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 }
 
 const getUserById = `-- name: GetUserById :one
-SELECT id, username, email, password, created_at, updated_at FROM users 
+SELECT id, username, email, password, role, created_at, updated_at FROM users 
 WHERE id = ?
 LIMIT 1
 `
@@ -80,6 +82,7 @@ func (q *Queries) GetUserById(ctx context.Context, id string) (User, error) {
 		&i.Username,
 		&i.Email,
 		&i.Password,
+		&i.Role,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -90,7 +93,7 @@ const updateUser = `-- name: UpdateUser :one
 UPDATE users
 SET username = ?, email = ?, password = ?, updated_at = ?
 WHERE id = ?
-RETURNING id, username, email, password, created_at, updated_at
+RETURNING id, username, email, password, role, created_at, updated_at
 `
 
 type UpdateUserParams struct {
@@ -115,6 +118,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		&i.Username,
 		&i.Email,
 		&i.Password,
+		&i.Role,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)

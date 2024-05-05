@@ -8,11 +8,62 @@ import (
 	"time"
 )
 
+type Alert struct {
+	ID        string
+	HiveID    string
+	AlertTime time.Time
+	AlertType string
+	Notes     string
+	Status    string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type Farm struct {
+	ID        string
+	Name      string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type Hive struct {
+	ID        string
+	FarmID    string
+	Name      string
+	Isempty   bool
+	Notes     string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type Inspection struct {
+	ID             string
+	HiveID         string
+	InspectionDate time.Time
+	HoneyStores    string
+	Pests          string
+	Diseases       string
+	QueenSeen      bool
+	EggsPresent    bool
+	LarvaePresent  bool
+	CappedBrood    bool
+	Notes          string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
+	OverallHealth  string
+}
+
 type User struct {
 	ID        string
 	Username  string
 	Email     string
 	Password  string
+	Role      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+type UserFarm struct {
+	UserID string
+	FarmID string
 }
