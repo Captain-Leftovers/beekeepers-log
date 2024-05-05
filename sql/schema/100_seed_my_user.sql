@@ -7,8 +7,8 @@ VALUES
 
 INSERT INTO user_farms (user_id, farm_id) 
 VALUES
-('8ca1b97c-79d9-4c66-8f6b-634ae2cf7645', '11'),
-('8ca1b97c-79d9-4c66-8f6b-634ae2cf7645', '12');
+('b45ada1c-430b-4179-8cc1-7e322be0c03f', '11'),
+('b45ada1c-430b-4179-8cc1-7e322be0c03f', '12');
 
 INSERT INTO hives (id, farm_id, name, isEmpty, notes, created_at, updated_at) 
 VALUES
