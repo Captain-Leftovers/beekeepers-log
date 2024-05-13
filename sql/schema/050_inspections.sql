@@ -17,20 +17,15 @@ CREATE TABLE inspections(
     CHECK (honey_stores IN ('low', 'medium', 'high')),
     CHECK (pests IN ('none', 'few', 'many')),
     CHECK (diseases IN ('none', 'few', 'many')),
-    CHECK (overall_health IN ('healthy', 'weak','swarming')),
+    CHECK (overall_health IN ('healthy', 'weak', 'swarming')),
     CHECK (queen_seen IN (0, 1)),
     CHECK (eggs_present IN (0, 1)),
     CHECK (larvae_present IN (0, 1)),
     CHECK (capped_brood IN (0, 1)),
     FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE
 );
-
 CREATE INDEX hive_id_index ON inspections(hive_id);
 CREATE INDEX inspection_date_index ON inspections(inspection_date);
-
-
 -- +goose Down
 DROP TABLE inspections;
-
-
--- TODO see if you need to add farm_id to inspections table or not maybe the inspection id can be composite can  be composite
+-- create a trigger to update the status of overallhealth and isEmpty  and  maybe last inspoected on hives table
