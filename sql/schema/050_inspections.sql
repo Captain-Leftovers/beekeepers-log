@@ -17,7 +17,9 @@ CREATE TABLE inspections(
     CHECK (honey_stores IN ('low', 'medium', 'high')),
     CHECK (pests IN ('none', 'few', 'many')),
     CHECK (diseases IN ('none', 'few', 'many')),
-    CHECK (overall_health IN ('healthy', 'weak', 'swarming')),
+    CHECK (
+        overall_health IN ('healthy', 'weak', 'swarming')
+    ),
     CHECK (queen_seen IN (0, 1)),
     CHECK (eggs_present IN (0, 1)),
     CHECK (larvae_present IN (0, 1)),
@@ -28,4 +30,3 @@ CREATE INDEX hive_id_index ON inspections(hive_id);
 CREATE INDEX inspection_date_index ON inspections(inspection_date);
 -- +goose Down
 DROP TABLE inspections;
--- create a trigger to update the status of overallhealth and isEmpty  and  maybe last inspoected on hives table

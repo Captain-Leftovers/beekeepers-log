@@ -6,7 +6,5 @@ CREATE TABLE user_farms(
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY(farm_id) REFERENCES farms(id) ON DELETE CASCADE
 );
-
 -- +goose Down
 DROP TABLE user_farms;
-

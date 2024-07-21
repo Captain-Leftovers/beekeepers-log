@@ -9,12 +9,12 @@ CREATE TABLE alerts(
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     CHECK (status IN ('pending', 'closed')),
-    CHECK (alert_type IN ('inspection', 'treatment', 'pest', 'disease')),
+    CHECK (
+        alert_type IN ('inspection', 'treatment', 'pest', 'disease')
+    ),
     FOREIGN KEY(hive_id) REFERENCES hives(id) ON DELETE CASCADE
 );
-
 DROP INDEX IF EXISTS hive_id_index;
 CREATE INDEX hive_id_index ON alerts(hive_id);
-
 -- +goose Down
 DROP TABLE alerts;
